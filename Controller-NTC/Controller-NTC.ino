@@ -312,7 +312,7 @@ void loop() {
       }
       Serial.print(Command);
     } else if (TOFlag) {
-      Serial.println(temp);
+      Serial.print(temp);
       if (!TWFlag) {
         TOFlag = false;
       } else {
@@ -337,7 +337,7 @@ void serialEvent() {
   while (Serial.available()) {
     // get the new byte:
     char inChar = (char)Serial.read();
-    Serial.print(inChar);
+    if (State !=3) Serial.print(inChar);
     // add it to the inputString:
     if (inChar == '\b') {
       Serial.print("\r");
