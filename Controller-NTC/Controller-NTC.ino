@@ -154,6 +154,8 @@ void loop() {
           case 'c':
             State = 2;
             break;
+          case 't':
+            TOFlag = true;
           case 'i':
             State = 3;
             break;
@@ -338,6 +340,10 @@ void serialEvent() {
     Serial.print(inChar);
     // add it to the inputString:
     if (inChar == '\b') {
+      Serial.print("\r");
+      for (int i = 0; i <= Command.length(); i++){
+        Serial.print(" ");
+      }
       Command.remove(Command.length() - 1);
       Serial.print("\r" + Command);
     } else Command += inChar;
