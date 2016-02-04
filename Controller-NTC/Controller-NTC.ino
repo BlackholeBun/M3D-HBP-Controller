@@ -26,6 +26,7 @@ boolean TFlag = false;
 boolean Reverse = false;
 boolean TWFlag = false;
 boolean TOFlag = false;
+boolean LEDState = false;
 int State = 0;
 long int UpdateTime = 2000;
 String Output = "";
@@ -69,6 +70,18 @@ void setup() {
   MsTimer2::start();
   Controller.SetOutputLimits(LowerBound, UpperBound);
   Controller.SetMode(AUTOMATIC);
+  pinMode(13, OUTPUT);
+  digitalWrite(13, HIGH);
+}
+
+void LEDSwitch(){
+
+  LEDState = !LEDState;
+  if (LEDState){
+    digitalWrite(13, HIGH);
+  } else {
+    digitalWrite(13, LOW);
+  }
 }
 
 int GetInt(String &input, String &output) {
@@ -158,6 +171,7 @@ void loop() {
             TOFlag = true;
           case 'i':
             State = 3;
+            digitalWrite(13, HIGH);
             break;
           default:
             Output = "Invalid command. Please type ? for help.";
@@ -255,6 +269,7 @@ void loop() {
             break;
           case 'e':
             State = 0;
+            digitalWrite(13, LOW);
             break;
           case 'w':
             result = GetInt(Command, newTemp);
@@ -311,6 +326,7 @@ void loop() {
         OutputTimer -= UpdateTime;
       }
       Serial.print(Command);
+      LEDSwitch();
     } else if (TOFlag) {
       Serial.print(temp);
       if (!TWFlag) {
