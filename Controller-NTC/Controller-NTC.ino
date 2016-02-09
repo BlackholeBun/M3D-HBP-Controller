@@ -14,11 +14,11 @@
 
 const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
 
-double temp = 0;
+double temp = 23;
 double tempLast = 0;
 double goalTemp = 0;
 double dbout = 0;
-int sensorValue = 0;        // value read from the pot
+int sensorValue = 255;        // value read from the pot
 int outputValue = 0;        // value output to the PWM (analog out)
 String Command = "";
 boolean CFlag = false;
@@ -45,6 +45,7 @@ void timerEvent() {
 void setup() {
   // initialize serial communications at 9600 bps:
   int RevTemp = 0;
+  temp = 23;
   Serial.begin(115200);
   Heater.attach(9);
   Command.reserve(255);
@@ -120,7 +121,12 @@ void loop() {
   int loc = 0;
   // read the analog in value:
   sensorValue = analogRead(analogInPin);
-  temp = ThermistorCalc;
+  //temp = ThermistorCalc;
+  if (temp > 23){
+    temp  = temp - ( random(66) / 1000) + (outputValue / 1000);
+  } else{
+    temp = temp + (outputValue / 1000);
+  }
   Controller.Compute();
 
   if (CFlag) {
