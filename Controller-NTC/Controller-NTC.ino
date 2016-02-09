@@ -123,9 +123,9 @@ void loop() {
   sensorValue = analogRead(analogInPin);
   //temp = ThermistorCalc;
   if (temp > 23){
-    temp  = temp - ( random(66) / 1000) + (outputValue / 1000);
+    temp  = temp - ( float(random(66)) / (25000 / (temp / 70))) + (float(outputValue) / 33000);
   } else{
-    temp = temp + (outputValue / 1000);
+    temp = temp + (float(outputValue) / 18000);
   }
   Controller.Compute();
 
