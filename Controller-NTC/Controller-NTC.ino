@@ -334,12 +334,13 @@ void loop() {
       Serial.print(Command);
       LEDSwitch();
     } else if (TOFlag) {
-      Serial.print(temp);
+      Serial.println(temp);
       if (!TWFlag) {
         TOFlag = false;
       } else {
         tempLast = (tempLast + temp) / 2;
         if (tempLast >= goalTemp) {
+          Serial.println("ok");
           TWFlag = false;
           TOFlag = false;
           TimerUpdate(UpdateTime);
